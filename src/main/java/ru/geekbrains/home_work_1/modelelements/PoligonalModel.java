@@ -26,9 +26,7 @@ public class PoligonalModel {
         this.textures = textures;
     }
 
-    public PoligonalModel(Collection<Poligon> poligons)
-    {
+    public PoligonalModel(Collection<Poligon> poligons) {
         this.poligons = poligons;
     }
-
 }

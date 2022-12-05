@@ -13,5 +13,4 @@ public class Poligon {
     public Poligon(Collection<Point3D> points) {
         this.points = points;
     }
-
 }

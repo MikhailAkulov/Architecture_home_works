@@ -13,14 +13,11 @@ public class Texture {
         return name;
     }
 
-
     {
         id = ++counter;
     }
 
-    public Texture(String name)
-    {
+    public Texture(String name) {
         this.name = name;
     }
-
 }

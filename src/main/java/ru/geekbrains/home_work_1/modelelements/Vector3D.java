@@ -15,5 +15,4 @@ public class Vector3D {
     public Vector3D(Point3D point) {
         this.point = point;
     }
-
 }
