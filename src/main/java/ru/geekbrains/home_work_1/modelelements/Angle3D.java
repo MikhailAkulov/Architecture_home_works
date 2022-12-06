@@ -23,5 +23,4 @@ public class Angle3D {
         this.vector1 = vector1;
         this.vector2 = vector2;
     }
-
 }

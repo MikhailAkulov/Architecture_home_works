@@ -1,37 +1,27 @@
 package ru.geekbrains.home_work_1.modelelements;
 
-import java.awt.*;
+import java.util.Collection;
 
 public class Flash {
 
-    //TODO: Доработать
-
-    private Point3D location;
-    private Angle3D angle;
+    private Collection<Point3D> location;
+    private Collection<Angle3D> angle;
     private Color color;
-    private float power;
+    private Float power;
 
-    public Flash(Point3D location, Angle3D angle, Color color, float power) {
+    public Flash(Collection<Point3D> location, Collection<Angle3D> angle, Color color, Float power) {
         this.location = location;
         this.angle = angle;
         this.color = color;
         this.power = power;
     }
 
-    public Point3D getLocation() {
+    public Collection<Point3D> getLocation() {
         return location;
     }
 
-    public void setLocation(Point3D location) {
-        this.location = location;
-    }
-
-    public Angle3D getAngle() {
+    public Collection<Angle3D> getAngle() {
         return angle;
-    }
-
-    public void setAngle(Angle3D angle) {
-        this.angle = angle;
     }
 
     public Color getColor() {
@@ -42,36 +32,19 @@ public class Flash {
         this.color = color;
     }
 
-    public float getPower() {
+    public Float getPower() {
         return power;
     }
 
-    public void setPower(float power) {
+    public void setPower(Float power) {
         this.power = power;
     }
 
     public void rotate(Angle3D angle){
-        short x = (short) (this.angle.getHorizontalAngle()+angle.getHorizontalAngle());
-        if (x>360){
-            this.angle.setHorizontalAngle((short)(x-360));
-        } else if(x<0){
-            this.angle.setHorizontalAngle((short)(360-x));
-        } else {
-            this.angle.setHorizontalAngle(x);
-        }
-
-        short y = (short) (this.angle.getVerticalAngle()+angle.getVerticalAngle());
-        if (y>360){
-            this.angle.setHorizontalAngle((short)(y-360));
-        } else if(y<0){
-            this.angle.setHorizontalAngle((short)(360-y));
-        } else {
-            this.angle.setHorizontalAngle(y);
-        }
+        // TODO: something logic
     }
 
     public void move (Point3D point) {
-        this.location.setX(this.location.getX()+point.getX());
-        this.location.setY(this.location.getY()+point.getY());
+        // TODO: something logic
     }
 }
