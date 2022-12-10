@@ -9,28 +9,24 @@ package ru.geekbrains.home_work_2;
 
 import java.util.Random;
 
-public class Homework {
+public class Homework{
 
     static Employee generateEmployee(){
 
         String[] names = new String[] { "Анатолий", "Глеб", "Клим", "Мартин", "Лазарь", "Владлен", "Клим", "Панкратий", "Рубен", "Герман" };
         String[] surnames = new String[] { "Григорьев", "Фокин", "Шестаков", "Хохлов", "Шубин", "Бирюков", "Копылов", "Горбунов", "Лыткин", "Соколов" };
-        //Integer[] salarys = new Integer[] { 35000, 40000, 45000, 50000, 55000, 60000, 65000, 70000, 75000, 80000 };
+        Integer[] workerSalary = new Integer[] { 35000, 40000, 45000, 50000, 55000, 60000, 65000, 70000, 75000, 80000 };
+        Integer[] freelancerSalary = new Integer[] { 350, 400, 450, 500, 550, 600, 650, 700, 750, 800 };
         Random random = new Random();
         int nameIndex = random.nextInt(names.length);
         int surnameIndex = random.nextInt(surnames.length);
-        double workerValue = Math.random() * 21 * 500 * 8;
-        double freelancerValue = Math.random() * 1000;
-        EmployeeType type;
-        double fatefulIndex = Math.random() * 2;
-        if (fatefulIndex < 1) {
-            type = EmployeeType.WORKER;
-        } else {
-            type = EmployeeType.FREELANCER;
-        }
-        return switch (type) {
-            case FREELANCER -> new Freelancer(names[nameIndex], surnames[surnameIndex], freelancerValue);
-            case WORKER -> new Worker(names[nameIndex], surnames[surnameIndex], workerValue);
+        int workerSalaryIndex = random.nextInt(workerSalary.length);
+        int freelancerSalaryIndex = random.nextInt(freelancerSalary.length);
+
+        EmployeeType employeeType = EmployeeType.randomEmployeeType();
+        return switch (employeeType) {
+            case WORKER -> new Worker(names[nameIndex], surnames[surnameIndex], workerSalary[workerSalaryIndex]);
+            case FREELANCER -> new Freelancer(names[nameIndex], surnames[surnameIndex], freelancerSalary[freelancerSalaryIndex]);
         };
     }
 
@@ -46,7 +42,6 @@ public class Homework {
 
         for (Employee employee : employees) {
             System.out.println(employee);
-
         }
     }
 }
@@ -138,5 +133,11 @@ class Worker extends Employee{
 
 enum EmployeeType {
     FREELANCER,
-    WORKER
+    WORKER;
+
+    static final Random r = new Random();
+    static EmployeeType randomEmployeeType() {
+        EmployeeType[] employees = values();
+        return employees[r.nextInt(employees.length)];
+    }
 }
