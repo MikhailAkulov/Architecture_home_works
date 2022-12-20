@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
-public class TicketsSale {
+public class Sample3 {
 
     /**
      * Разработать контракты и компоненты системы "Покупка онлайн билетов на автобус в час пик".
@@ -27,12 +27,11 @@ public class TicketsSale {
         MobileApp mobileApp = new MobileApp(core.getCustomerProvider(), core.getTicketProvider());
 
         mobileApp.searchTicket(new Date());
-        mobileApp.buyTicket("1000000000000044");
+        mobileApp.buyTicket("9999888877776666");
 
-        BusStation busStation = new BusStation();
-
+        BusStation busStation = new BusStation(core.getTicketProvider());
+        busStation.qrVerification("anyQRCode");
     }
-
 }
 
 class Customer{
@@ -57,7 +56,9 @@ class Customer{
         this.tickets = tickets;
     }
 }
+
 class Ticket {
+
     private int id;
     private int customerId;
     private Date date;
@@ -99,7 +100,6 @@ class Ticket {
 
 class Database{
 
-
     private static int count;
     private Collection<Ticket> tickets = new ArrayList<>();
     private Collection<Customer> customers = new ArrayList<>();
@@ -120,7 +120,6 @@ class Database{
         return  ++count;
     }
 
-
     public Collection<Ticket> getTickets() {
         return tickets;
     }
@@ -130,8 +129,8 @@ class Database{
     }
 }
 
-
 class TicketProvider{
+
     private final Database database;
     private final PaymentProvider paymentProvider;
 
@@ -173,6 +172,7 @@ class TicketProvider{
 }
 
 class CustomerProvider{
+
     private final Database database;
 
     public CustomerProvider(Database database){
@@ -182,9 +182,7 @@ class CustomerProvider{
     public Customer getCustomer(String login, String password){
 
         return database.getCustomers().stream().findFirst().get();
-
     }
-
 }
 
 class Core{
@@ -210,7 +208,6 @@ class Core{
     }
 }
 
-
 /**
  * Мобильное приложение
  */
@@ -228,11 +225,9 @@ class MobileApp{
         customer.setTickets(ticketProvider.searchTicket(customer.getId(), new Date()));
     }
 
-
     public boolean buyTicket(String cardNo){
-        return ticketProvider.buyTicket(customer.getId(), cardNo);
+        return ticketProvider.buyTicket(customer.getId(), "1111222233334444");
     }
-
 
 }
 
@@ -245,6 +240,15 @@ class BusStation{
     // 1. Доработать модуль BusStation
     // 2. Переработать любой модуль, например TicketProvider, в рамках соответствия принципу контрактно-ориентированного программирования.
 
+    private TicketProvider ticketProvider;
+
+    public BusStation(TicketProvider ticketProvider) {
+        this.ticketProvider = ticketProvider;
+    }
+
+    public boolean qrVerification (String qrcode) {
+        return ticketProvider.checkTicket(qrcode);
+    }
 }
 
 
@@ -253,7 +257,6 @@ class PaymentProvider{
     public boolean buy(int orderId, String cardNo, double amount) {
         return true;
     }
-
 }
 
 
