@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
-public class Sample3 {
+public class Sample03 {
 
     /**
      * Разработать контракты и компоненты системы "Покупка онлайн билетов на автобус в час пик".
@@ -129,7 +129,7 @@ class Database{
     }
 }
 
-class TicketProvider{
+class TicketProvider implements Searchable{
 
     private final Database database;
     private final PaymentProvider paymentProvider;
@@ -142,23 +142,72 @@ class TicketProvider{
     public Collection<Ticket> searchTicket(int clientId, Date date){
 
         Collection<Ticket> tickets = new ArrayList<>();
+
+        // ПРЕДУСЛОВИЕ
+        if (database.getTickets().isEmpty()) {
+            throw new RuntimeException("No data in Database");
+        }
+        if (clientId < 1) {
+            throw new RuntimeException("Invalid clientId, enter once again: ");
+        }
+
+        // Основные инструкции
         for (Ticket ticket: database.getTickets()) {
             if (ticket.getCustomerId() == clientId && ticket.getDate().equals(date))
                 tickets.add(ticket);
         }
-        return tickets;
 
+        // ИНВАРИАНТ
+        validateResult(tickets);
+
+        // ПОСТУСЛОВИЕ
+        if (tickets.isEmpty()) {
+            throw new RuntimeException("Тo tickets available now");
+        }
+        return tickets;
     }
 
+    public void validateResult(Collection<Ticket> tickets) {
+        if (tickets.size() == 0) {
+            throw new RuntimeException("Ticket not found");
+        }
+    }
+
+    /**
+     * Позволяет произвести покупку билета
+     * @param clientId - Id клиента
+     * @param cardNo - номер банковской карты клиента
+     * @throws RuntimeException исключение при работе с базой данных
+     * @return - значение true/false
+     */
     public boolean buyTicket(int clientId, String cardNo){
 
         int orderId = database.createTicketOrder(clientId);
         double amount = database.getTicketAmount();
 
+        // ПРЕДУСЛОВИЕ
+        if (orderId < 1) {
+            throw new RuntimeException("Invalid orderId");
+        }
+        if (amount <= 0) {
+            throw new RuntimeException("Invalid amount");
+        }
         return paymentProvider.buy(orderId, cardNo, amount);
     }
 
+    /**
+     * Позволяет проверить билет по QR-коду
+     * @param qrcode - QR-код билета
+     * @return - значение true/false
+     */
     public boolean checkTicket(String qrcode){
+
+        // ПРЕДУСЛОВИЕ
+        if (qrcode.isEmpty()) {
+            throw new RuntimeException("Invalid QR-code");
+        }
+
+        // Основные инструкции
         for (Ticket ticket: database.getTickets()) {
             if (ticket.getQrcode().equals(qrcode)){
                 ticket.setEnable(false);
@@ -168,6 +217,18 @@ class TicketProvider{
         }
         return false;
     }
+
+}
+
+interface Searchable {
+    /**
+     * Позволяет искать биллет в коллекции
+     * @param clientId Id клиента
+     * @param date дата
+     * @throws RuntimeException исключение при работе с коллекцией
+     * @return коллекция билетов
+     */
+    Collection<Ticket> searchTicket(int clientId, Date date);
 
 }
 
@@ -263,7 +324,6 @@ class PaymentProvider{
 class ProcessingCompany{
 
     private Collection<Bank> banks = new ArrayList<>();
-
 }
 
 
