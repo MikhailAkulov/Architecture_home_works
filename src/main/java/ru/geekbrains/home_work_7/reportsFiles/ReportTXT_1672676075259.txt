@@ -1,0 +1,11 @@
+Report{id=1, productName='Product', quantity=68, price=415.7344136632638, date=Mon Jan 02 19:14:32 MSK 2023}
+Report{id=2, productName='Product', quantity=48, price=661.4715007515398, date=Mon Jan 02 19:14:32 MSK 2023}
+Report{id=3, productName='Product', quantity=30, price=166.62777027333098, date=Mon Jan 02 19:14:32 MSK 2023}
+Report{id=4, productName='Product', quantity=73, price=559.067939020515, date=Mon Jan 02 19:14:32 MSK 2023}
+Report{id=5, productName='Product', quantity=28, price=672.8399867019834, date=Mon Jan 02 19:14:32 MSK 2023}
+Report{id=6, productName='Product', quantity=16, price=548.2150982184628, date=Mon Jan 02 19:14:32 MSK 2023}
+Report{id=7, productName='Product', quantity=40, price=651.1276079443202, date=Mon Jan 02 19:14:32 MSK 2023}
+Report{id=8, productName='Product', quantity=20, price=464.60519594810114, date=Mon Jan 02 19:14:32 MSK 2023}
+Report{id=9, productName='Product', quantity=71, price=133.2589527309168, date=Mon Jan 02 19:14:32 MSK 2023}
+Report{id=10, productName='Product', quantity=68, price=865.4378432822242, date=Mon Jan 02 19:14:32 MSK 2023}
+Report{id=11, productName='Product', quantity=36, price=473.90750303132234, date=Mon Jan 02 19:14:32 MSK 2023}
